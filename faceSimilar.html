@@ -23,12 +23,14 @@
             },
             type: "POST",
             // Request body
-            data: "{'faceId': '76965468-67fb-4fec-b7cd-8ebd7318c40e',"+
+            data: "{'faceId': '28112519-f685-439c-baaa-7887b1bce139',"+
                 "'faceListId': 'list1',"+
                 "'maxNumOfCandidatesReturned': 10,"+
                 "'mode': 'matchPerson'}",
             })
         .done(function(data) {
+            console.log(presistedFaceId);
+            
             alert("success");
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
