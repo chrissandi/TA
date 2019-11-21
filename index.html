@@ -14,7 +14,7 @@ Enter the URL to an image that includes a face or faces, then click
 the <strong>Analyze face</strong> button.<br><br>
 Image to analyze: <input type="text" name="inputImage" id="inputImage"
     value="https://upload.wikimedia.org/wikipedia/commons/c/c3/RH_Louise_Lillian_Gish.jpg" />
-<button onclick="createFaceList()">Analyze face</button><br><br>
+<button onclick="processImage()">Analyze face</button><br><br>
 <div id="wrapper" style="width:1020px; display:table;">
     <div id="jsonOutput" style="width:600px; display:table-cell;">
         Response:<br><br>
@@ -29,17 +29,10 @@ Image to analyze: <input type="text" name="inputImage" id="inputImage"
     function processImage() {
         // Replace <Subscription Key> with your valid subscription key.
         var subscriptionKey = "85d799141b4746d6827f4ffd52db6375";
-<<<<<<< HEAD
-
-        var uriBase =
-            "https://pascalfaceapisandbox.cognitiveservices.azure.com/face/v1.0/detect";
-
-=======
     
         var uriBase =
             "https://pascalfaceapisandbox.cognitiveservices.azure.com/face/v1.0/detect";
     
->>>>>>> c568a28ddf4dcc9fb843906e0a495c6703a4e304
         // Request parameters.
         var params = {
             "returnFaceId": "true",

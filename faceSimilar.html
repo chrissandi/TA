@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSSample</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+    $(function() {
+        var subscriptionKey = "85d799141b4746d6827f4ffd52db6375";
+        var params = {
+            // Request parameters
+            // "recognitionModel": "recognition_02"
+        };
+      
+        $.ajax({
+            url: "https://pascalfaceapisandbox.cognitiveservices.azure.com/face/v1.0/findsimilars?" + $.param(params),
+            beforeSend: function(xhrObj){
+                // Request headers
+                xhrObj.setRequestHeader("Content-Type","application/json");
+                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key",subscriptionKey);
+            },
+            type: "POST",
+            // Request body
+            data: "{'faceId': '76965468-67fb-4fec-b7cd-8ebd7318c40e',"+
+                "'faceListId': 'list1',"+
+                "'maxNumOfCandidatesReturned': 10,"+
+                "'mode': 'matchPerson'}",
+            })
+        .done(function(data) {
+            alert("success");
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+                // Display error message.
+                var errorString = (errorThrown === "") ?
+                    "Error. " : errorThrown + " (" + jqXHR.status + "): ";
+                errorString += (jqXHR.responseText === "") ?
+                    "" : (jQuery.parseJSON(jqXHR.responseText).message) ?
+                        jQuery.parseJSON(jqXHR.responseText).message :
+                        jQuery.parseJSON(jqXHR.responseText).error.message;
+                alert(errorString);
+            });
+    });
+</script>
+</body>
+</html>
