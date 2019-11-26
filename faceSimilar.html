@@ -21,6 +21,9 @@
             // Request parameters
             // "recognitionModel": "recognition_02"
         };
+        
+        var fclist = "list-cewe";
+        var ids = "58f91736-5e35-4a48-854c-ce47a90c8f08";
       
         $.ajax({
             url: "https://pascalfaceapisandbox.cognitiveservices.azure.com/face/v1.0/findsimilars?" + $.param(params),
@@ -31,8 +34,8 @@
             },
             type: "POST",
             // Request body
-            data: "{'faceId': '57f619d4-8b77-41d4-9eac-ca1503797392',"+
-                "'faceListId': 'list1',"+
+            data: "{'faceId': '" + ids + "',"+
+                "'faceListId': '" + fclist + "',"+
                 "'maxNumOfCandidatesReturned': 10,"+
                 "'mode': 'matchPerson'}",
             })

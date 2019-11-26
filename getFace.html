@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>JSSample</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <textarea id="responseTextArea" class="UIInput"></textarea>
+
+    <img id="sourceImage" />
+
+
+    <script type="text/javascript">
+        $(function () {
+            var subscriptionKey = "85d799141b4746d6827f4ffd52db6375";
+            var params = {
+                // Request parameters
+                "faceListId": "list-cewe",
+                "returnRecognitionModel": "false",
+            };
+
+            $.ajax({
+                url: "https://pascalfaceapisandbox.cognitiveservices.azure.com/face/v1.0/facelists/{faceListId}?" + $.param(params),
+                beforeSend: function (xhrObj) {
+                    // Request headers
+                    xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
+                },
+                type: "GET",
+                // Request body
+                data: "{body}",
+            })
+                .done(function (data) {
+                    alert("success");
+                    var json = JSON.stringify(data, null, 2);
+                    $("#responseTextArea").val(json);
+                    var jsonparse = JSON.parse(json);
+                    console.log("test");
+                    var arr = jsonparse.persistedFaces;
+
+
+                    for (var i = 0; i < arr.length; i++) {
+
+                        console.log(arr[i]['persistedFaceId']);
+                        if (arr[i]['persistedFaceId'] == "87c51132-e645-4064-9602-533ec98b3c8f") {
+                            var str = arr[i]['userData'];
+                            console.log(str);
+                            console.log(str.split("@"));
+                            var splited = str.split("@");
+                            console.log("nama = " + splited[0]);
+
+                            document.querySelector("#sourceImage").src = splited[1];
+                        }
+                    }
+                })
+                .fail(function () {
+                    var errorString = (errorThrown === "") ?
+                        "Error. " : errorThrown + " (" + jqXHR.status + "): ";
+                    errorString += (jqXHR.responseText === "") ?
+                        "" : (jQuery.parseJSON(jqXHR.responseText).message) ?
+                            jQuery.parseJSON(jqXHR.responseText).message :
+                            jQuery.parseJSON(jqXHR.responseText).error.message;
+                    alert(errorString);
+                });
+        });
+    </script>
+</body>
+
+</html>
