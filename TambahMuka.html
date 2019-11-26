@@ -4,19 +4,26 @@
 <head>
     <title>Add Face</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 </head>
 
 <body>
     <div class="header">
-        <h1>Detect Faces</h1>
+        <h1 id="title"><i id="hearthead" class="fa fa-heart-o"></i> Add Face <i id="hearthead" class="fa fa-heart-o"></i></h1>
+        <h1 id="add"><a href="index.html"><i class="fa fa-venus-mars"></i></a></h1>
     </div>
-    <div class="content">
-        Add face photo link into the list:<br><br>
+    <div class="content" id="addDiv">
+        <p id="text">Add the name of this face photo:</p>
+        <input type="text" id="name" required>
+        <p id="text"></p>Add face photo link into the list:</p>
         <input type="text" id="inputImage" required><br><br>
-        Add the name of this face photo:<br><br>
-        <input type="text" id="name" required><br><br>
-        <button onclick="processImage()">Add Face</button>
+        <button id="analyze" class="w3-button w3-round-xxlarge w3-border w3-border-pink" style="color: rgb(207, 53, 79);" onclick="processImage()">Add Face</button>
+    </div>
+    <div id="imageDiv">
+        <p id="text">Source image:</p>
+        <img id="sourceImage" />
     </div>
 </body>
 
@@ -45,6 +52,10 @@
                 "age,gender,headPose,smile,facialHair,glasses,emotion," +
                 "hair,makeup,occlusion,accessories,blur,exposure,noise"
         };
+
+        
+        // Display the image.
+        document.querySelector("#sourceImage").src = sourceImageUrl;
 
         console.log(sourceImageUrl);
 
@@ -100,9 +111,9 @@
 
         var fclist = "";
         if (gender == "female") {
-            fclist = "list-cewe";
+            fclist = "list-perempuan";
         } else {
-            fclist = "list-cowo";
+            fclist = "list-pria";
         }
         console.log(gender + " gendernya akhir");
         console.log(fclist);
@@ -130,7 +141,7 @@
                 '}',
         })
             .done(function (data) {
-                alert("success");
+                alert("SUCCESS!!\nA new face has been added to the list!!");
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 // Display error message.

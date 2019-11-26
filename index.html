@@ -6,6 +6,7 @@
     <title>Detect Faces Sample</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 </head>
 
@@ -13,15 +14,19 @@
 
 </html>
 <div class="header">
-    <h1>Detect Faces</h1>
+    <h1 id="title"><i id="hearthead" class="fa fa-heart-o"></i> Find Your Soulmate <i id="hearthead" class="fa fa-heart-o"></i></h1>
+    <h1 id="add"><a href="TambahMuka.html"><i class="fa fa-user-plus"></i></a></h1>
 </div>
 <div class="content">
-    <div class="text_input">
-        Enter the URL to an image that includes a face or faces, then click the <strong>Analyze face</strong> button.
-        <br><br> Image to analyze: <input type="text" name="inputImage" id="inputImage"
-            value="https://upload.wikimedia.org/wikipedia/commons/c/c3/RH_Louise_Lillian_Gish.jpg" />
-        <button onclick="processImage()">Analyze face</button><br><br>
+    <div>
+        <p id="text">Enter the URL to an image that includes yout face, then click the <strong style="color: rgb(207, 53, 79);">Find <i class="fa fa-venus-mars"></i></strong> button.</p>
     </div>
+    <div class="text_input">
+        <p id="input">Image to analyze: <input type="text" name="inputImage" id="inputImage"/></p>
+        <button id="analyze" class="w3-button w3-round-xxlarge w3-border w3-border-pink" style="color: rgb(207, 53, 79);" onclick="processImage()">Find <i class="fa fa-venus-mars"></i></button><br><br>
+    </div>
+
+    <div id="result" class="result"></div>
 
     <div class="response" id="wrapper">
         <!-- <div id="jsonOutput">
@@ -29,7 +34,7 @@
             <textarea id="responseTextArea" class="UIInput"></textarea>
         </div> -->
         <div id="imageDiv">
-            Source image:<br><br>
+            <p id="text">Source image:</p>
             <img id="sourceImage" />
         </div>
         <div id="imageDiv">
@@ -37,10 +42,11 @@
             <p id="conf" class="centered"></p>
         </div>
         <div id="imageDiv">
-            Soulmate image:<br><br>
+            <p id="text">Soulmate image:</p>
             <img id="soulmate" />
         </div>
     </div>
+
 </div>
 <script type="text/javascript">
     var subscriptionKey = "85d799141b4746d6827f4ffd52db6375";
@@ -125,9 +131,9 @@
         };
         var fclist = "";
         if (gender == "male") {
-            fclist = "list-cewe";
+            fclist = "list-perempuan";
         } else {
-            fclist = "list-cowo";
+            fclist = "list-pria";
         }
 
         $.ajax({
@@ -154,6 +160,11 @@
 
                 var id = jsonparse[0].persistedFaceId;
                 var conf = jsonparse[0].confidence * 100;
+                if(conf <= 20) {
+                    conf = conf + 40;
+                } else if(conf <= 50 && conf > 20) {
+                    conf = conf + 30;
+                }
                 conf = conf + "%";
                 console.log(id + " list, " + conf);
                 var val = document.getElementById("conf").innerHTML = conf;
@@ -198,7 +209,7 @@
             data: "{body}",
         })
             .done(function (data) {
-                alert("success");
+                alert("SUCCESS!! \n!!WARNING!!\nJust For Fun Apps!! No Hard Feelings!!");
                 var json = JSON.stringify(data, null, 2);
                 // $("#responseTextArea").val(json);
                 var jsonparse = JSON.parse(json);
@@ -214,10 +225,14 @@
                         var splited = str.split("@");
                         console.log("nama = " + splited[0]);
 
-                        document.getElementById("heart").style.visibility = "visible";
-                        document.getElementById("conf").style.visibility = "visible";
+                        // document.getElementById("heart").style.visibility = "visible";
+                        // document.getElementById("conf").style.visibility = "visible";
+                        // document.getElementById("imageDiv").style.visibility = "visible";
+                        // document.getElementById("imageDiv1").style.visibility = "visible";
+                        document.getElementById("wrapper").style.visibility = "visible";
 
                         document.querySelector("#soulmate").src = splited[1];
+                        var res = document.getElementById("result").innerHTML = "Your soulmate is " + splited[0] + "!";
                     }
                 }
             })
@@ -238,7 +253,7 @@
 
     function createFaceList() {
         var params = {
-            "faceListId": "list-cowo"
+            "faceListId": "list-perempuan"
         };
 
         $.ajax({
@@ -251,7 +266,7 @@
             type: "PUT",
             // Request body
             data: '{' +
-                '"name": "kumpulan_muka",' +
+                '"name": "kumpulan_muka_perempuan",' +
                 '"userData": "User-provided data attached to the face list.",' +
                 '"recognitionModel": "recognition_02"' +
                 '}',

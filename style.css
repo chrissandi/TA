@@ -16,12 +16,31 @@ body {
     padding: 30px;
 }
 
+.result {
+    text-align: center;
+    font-weight: bold;
+    font-size: 60px;
+}
+
 #inputImage {
     width: 415px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 #name {
     width: 415px;
+}
+
+
+.text_input { 
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: large;
+}
+
+#text {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: large;
+
 }
 
 #jsonOutput {
@@ -41,13 +60,13 @@ body {
 }
 
 #sourceImage {
-    max-width: 450px;
-    max-height: 450px;
+    max-width: 350px;
+    max-height: 350px;
 }
 
 #soulmate {
-    max-width: 450px;
-    max-height: 450px;
+    max-width: 350px;
+    max-height: 350px;
 }
 
 #imageDiv {
@@ -58,21 +77,60 @@ body {
 }
 
 #heart {
-    font-size:100px;
+    font-size:250px;
     color:pink;
     display: block;
     padding-top: 100px;
-    visibility: hidden;
+}
+
+#hearthead {
+    /* font-size:200px; */
+    color:pink;
+}
+
+#input {
+    float: left;
+}
+
+#analyze {
+    margin: 10px;
 }
 
 .centered {
-    visibility: hidden;
     position: absolute;
-    padding-top: 60px;
-    padding-left: 5px;
-    top: 50%;
+    padding-left: 8px;
+    top: 48%;
     left: 50%;
     transform: translate(-50%, -50%);
+    font-size: 40px;
     font-weight: bold;
     color: grey;
+}
+
+.response {
+    visibility: hidden;
+}
+
+#title {
+    float: left;
+    padding-left: 20px;
+}
+
+#add {
+    float: right;
+    padding-right: 25px;
+    color: pink;
+}
+
+a {
+    color: pink;
+}
+
+a:hover {
+    color: hotpink;
+    cursor: pointer;
+}
+
+#addDiv {
+    float: left;
 }
