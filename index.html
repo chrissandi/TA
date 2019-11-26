@@ -159,12 +159,13 @@
                 // console.log(jsonparse);
 
                 var id = jsonparse[0].persistedFaceId;
-                var conf = jsonparse[0].confidence * 100;
+                var conf = jsonparse[0].confidence*100;
                 if(conf <= 20) {
                     conf = conf + 40;
                 } else if(conf <= 50 && conf > 20) {
                     conf = conf + 30;
                 }
+                conf = conf.toFixed(2);
                 conf = conf + "%";
                 console.log(id + " list, " + conf);
                 var val = document.getElementById("conf").innerHTML = conf;
