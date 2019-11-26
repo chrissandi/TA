@@ -16,19 +16,26 @@
         <input type="text" id="inputImage" required><br><br>
         Add the name of this face photo:<br><br>
         <input type="text" id="name" required><br><br>
-        <button onclick="addFace()">Add Face</button>
+        <button onclick="processImage()">Add Face</button>
     </div>
 </body>
 
 </html>
 <script type="text/javascript">
+    var subscriptionKey = "85d799141b4746d6827f4ffd52db6375";
+
+    //=====================================================================================================================
+    // Method memproses foto!
+    // keperluan: mendapatkan gender untuk ditentukan mau ditambahkan ke list mana
+
     function processImage() {
+        var sourceImageUrl = document.getElementById("inputImage").value;
+        var name = document.getElementById("name").value;
         // Replace <Subscription Key> with your valid subscription key.
-        var subscriptionKey = "85d799141b4746d6827f4ffd52db6375";
-    
+
         var uriBase =
             "https://pascalfaceapisandbox.cognitiveservices.azure.com/face/v1.0/detect";
-    
+
         // Request parameters.
         var params = {
             "returnFaceId": "true",
@@ -39,7 +46,8 @@
                 "hair,makeup,occlusion,accessories,blur,exposure,noise"
         };
 
-        var sourceImageUrl = document.getElementById("tambahMuka").value;
+        console.log(sourceImageUrl);
+
 
         // Perform the REST API call.
         $.ajax({
@@ -60,15 +68,15 @@
             .done(function (data) {
                 // Show formatted JSON on webpage.
                 var json = JSON.stringify(data, null, 2);
-                $("#responseTextArea").val(json);
+                // $("#responseTextArea").val(json);
                 var jsonparse = JSON.parse(json);
-                var id = "";
                 var gender = "";
                 for (var i = 0; i < jsonparse.length; i++) {
-                    // id = jsonparse[i]['faceId'];
                     gender = jsonparse[i]['faceAttributes'].gender;
+                    // console.log(jsonparse[i]['faceId'] + " source");
+                    // console.log(jsonparse[i]['faceAttributes'].gender);
                 }
-                addFace(sourceImageUrl,gender);
+                addFace(sourceImageUrl, gender, name);
             })
 
             .fail(function (jqXHR, textStatus, errorThrown) {
@@ -83,31 +91,33 @@
             });
     };
 
-    function addFace(url, gender) {
-        var subscriptionKey = "85d799141b4746d6827f4ffd52db6375";
-        var sourceImageUrl = document.getElementById("inputImage").value;
-        var name = document.getElementById("name").value;
-        
+    //=====================================================================================================================
+    // Method menambah foto muka di list!
+    // keperluan: menambah foto di list yang akan dibandingkan
+
+
+    function addFace(url, gender, name) {
+
         var fclist = "";
-        if(gender == "female"){
+        if (gender == "female") {
             fclist = "list-cewe";
         } else {
             fclist = "list-cowo";
         }
-        console.log(gender);
+        console.log(gender + " gendernya akhir");
         console.log(fclist);
-        
-        
+
+
         var params = {
             // Request parameters
             "faceListId": fclist,
-            "userData": name + "@" + sourceImageUrl
+            "userData": name + "@" + url
         };
         console.log(params.userData);
-        
+
 
         $.ajax({
-            url: "https://pascalfaceapisandbox.cognitiveservices.azure.com/face/v1.0/facelists/list1/persistedFaces?" + $.param(params),
+            url: "https://pascalfaceapisandbox.cognitiveservices.azure.com/face/v1.0/facelists/" + fclist + "/persistedFaces?" + $.param(params),
             beforeSend: function (xhrObj) {
                 // Request headers
                 xhrObj.setRequestHeader("Content-Type", "application/json");
@@ -116,7 +126,7 @@
             type: "POST",
             // Request body
             data: '{' +
-                '"url": "' + sourceImageUrl +'"'+
+                '"url": "' + url + '"' +
                 '}',
         })
             .done(function (data) {
