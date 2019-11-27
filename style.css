@@ -25,6 +25,21 @@ body {
 #inputImage {
     width: 415px;
     font-family: Verdana, Arial, Helvetica, sans-serif;
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#name {
+    width: 415px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 #name {
@@ -62,11 +77,15 @@ body {
 #sourceImage {
     max-width: 350px;
     max-height: 350px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.7), 0 6px 20px 0 rgba(0, 0, 0, 0.7);
 }
 
 #soulmate {
     max-width: 350px;
     max-height: 350px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.7), 0 6px 20px 0 rgba(0, 0, 0, 0.7);
 }
 
 #imageDiv {
@@ -94,6 +113,7 @@ body {
 
 #analyze {
     margin: 10px;
+    margin-top: 15px;
 }
 
 .centered {
@@ -133,4 +153,8 @@ a:hover {
 
 #addDiv {
     float: left;
+}
+
+#wrapper {
+    margin: auto;
 }

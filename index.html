@@ -240,6 +240,9 @@
             .fail(function () {
                 var errorString = (errorThrown === "") ?
                     "Error. " : errorThrown + " (" + jqXHR.status + "): ";
+
+                document.getElementById("wrapper").style.visibility = "hidden";
+
                 errorString += (jqXHR.responseText === "") ?
                     "" : (jQuery.parseJSON(jqXHR.responseText).message) ?
                         jQuery.parseJSON(jqXHR.responseText).message :
